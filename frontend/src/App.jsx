@@ -30,7 +30,7 @@ function App() {
     try {
       const res = await fetch(`${BASE_URL}/leaderboard`);
       setLeaderboard(await res.json());
-    } catch (e) { /* ignore */ }
+    } catch { /* ignore */ }
   }, []);
 
   useEffect(() => {
@@ -51,12 +51,12 @@ function App() {
       await fetch(`${BASE_URL}/start`, { method: 'POST' });
       setIsRunning(true);
       setStatus(s => ({ ...s, status: 'Processing', currentPoll: 0 }));
-    } catch (e) {
+    } catch {
       alert('Could not reach backend. Make sure Spring Boot is running on port 8080.');
     }
   };
 
-  const { currentPoll, grandTotalScore, eventsProcessed, duplicatesIgnored, submissionResult } = status;
+  const { currentPoll, grandTotalScore, eventsProcessed, duplicatesIgnored } = status;
   const progress = currentPoll >= 0 ? (currentPoll + 1) * 10 : 0;
   const isActive = status.status === 'Processing' || status.status === 'Submitting';
   const isCompleted = status.status === 'Completed';
@@ -176,7 +176,7 @@ function App() {
               <span className="sr-badge">CORRECT</span>
             </div>
             <div className="sr-participants">
-              {leaderboard.map((entry, i) => (
+              {leaderboard.map((entry) => (
                 <div key={entry.participant} className="sr-participant-row">
                   <div className="sr-participant-info">
                     <div className="sr-avatar">{entry.participant.charAt(0).toUpperCase()}</div>
