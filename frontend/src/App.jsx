@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import './index.css';
 
-const BASE_URL = 'http://localhost:8080/api/quiz';
+const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080/api/quiz';
 
 function App() {
   const [status, setStatus] = useState({
